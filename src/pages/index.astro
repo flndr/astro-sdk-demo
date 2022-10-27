@@ -1,0 +1,29 @@
+---
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const sbApi = useStoryblokApi()
+const { data } = await sbApi.get('cdn/stories/home', {
+  version: 'draft',
+})
+
+const story = data.story
+---
+
+<BaseLayout>
+  <StoryblokComponent blok={story.content} />
+</BaseLayout>
+<style is:global>
+  .counter{
+    display: grid;
+    font-size: 2em;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 2em;
+    place-items: center;
+  }
+  .message {
+    text-align: center;
+  }
+</style>
+
